@@ -29,3 +29,20 @@ jobs:
     - name: Run tests
       run: |
         pytest  # Run the tests
+
+    - name: Configure Git
+      run: |
+        git config --global user.name "alikatteRajakala"
+        git config --global user.email "alikatterajakala.com"
+
+    - name: Push changes to team members' repositories
+      env:
+        PAT: ${{ secrets.CLASSIC_PAT }}  # Using the secret token
+      run: |
+        # Add teammate's repositories as remotes
+         git remote add team1 https://Alikatte123:${{ secrets.CLASSIC_PAT }}@github.com/Alikatte123/github-actions-python-example-forked.git
+      
+        
+        # Push the changes to teammates' repositories
+        git push team1 main
+      
