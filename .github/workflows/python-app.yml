@@ -33,15 +33,17 @@ jobs:
     - name: Configure Git
       run: |
         git config --global user.name "alikatteRajakala"
-        git config --global user.email "alikatterajakala.com"
+        git config --global user.email "alikatterajakala@gmail.com"
 
-    - name: Check remote access
+    - name: Check remote access for team members
       run: |
         git remote add team1 https://Alikatte123:${{ secrets.CLASSIC_PAT }}@github.com/Alikatte123/github-actions-python-example-forked.git
+        git remote add team2 https://sujith-ch:${{ secrets.CLASSIC_PAT }}@github.com/sujith-ch/github-actions-python-ex-forkexample.git
         git remote -v  # Debugging step to verify remotes
 
     - name: Push changes to team members' repositories
       env:
         PAT: ${{ secrets.CLASSIC_PAT }}
       run: |
-        git push team1 main || echo "Push failed, check permissions or PAT scopes."
+        git push team1 main || echo "Push to team1 failed, check permissions or PAT scopes."
+        git push team2 main || echo "Push to team2 failed, check permissions or PAT scopes."
