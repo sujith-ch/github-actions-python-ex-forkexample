@@ -35,10 +35,13 @@ jobs:
         git config --global user.name "alikatteRajakala"
         git config --global user.email "alikatterajakala.com"
 
-    - name: Add remote repository and push changes
-      env:
-        PAT: ${{ secrets.CLASSIC_PAT }}  # Ensure the PAT is stored as a GitHub secret
+    - name: Check remote access
       run: |
-        git remote add team1 https://alikatterajakala:${{ secrets.CLASSIC_PAT }}@github.com/Alikatte123/github-actions-python-example-forked.git
-        git remote -v  # Verify remotes
+        git remote add team1 https://Alikatte123:${{ secrets.CLASSIC_PAT }}@github.com/Alikatte123/github-actions-python-example-forked.git
+        git remote -v  # Debugging step to verify remotes
+
+    - name: Push changes to team members' repositories
+      env:
+        PAT: ${{ secrets.CLASSIC_PAT }}
+      run: |
         git push team1 main || echo "Push failed, check permissions or PAT scopes."
